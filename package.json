@@ -1,0 +1,17 @@
+{
+	"name": "agrix05132024",
+	"version": "1.0.0",
+	"description": "Agrix Server.Client",
+	"main": "",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"client": "cd master && npm run dev",
+		"backend": "cd server && npm run start",
+		"start": "concurrently --kill-others \"npm run backend\"  \"npm run client\""
+	},
+	"author": "Backend -John Cramer, Frontend- Kalu-Emeka, Smart Contracts -Amaan Sayyad Figma- Disruptor",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^8.2.2"
+	}
+}
