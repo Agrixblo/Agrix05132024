@@ -5,7 +5,8 @@ const { String} = Schema.Types;
 
 const assetSchema = new Schema({
 
-	walletaddress: { type: String, required: true },
+	address: { type: String, required: true },
+	description: {type: Array, required: true},
 	
 });
 

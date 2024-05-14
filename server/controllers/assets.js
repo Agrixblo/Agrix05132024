@@ -7,10 +7,10 @@ module.exports = {
 			.catch(next);
 	},
 	post: (req, res, next) => {
-		const { walletaddress } = req.body;
+		const { address,description } = req.body;
 		const { _id } = req.user;
 
-		models.Asset.create({  token, description })
+		models.Asset.create({  address, description })
 			.then((createdAssets) => {
 				return Promise.all([
 					models.User.updateOne(
@@ -27,8 +27,8 @@ module.exports = {
 	},
 	put: (req, res, next) => {
 		const id = req.params.id;
-		const { description } = req.body;
-		models.Asset.updateOne({ _id: id }, { description })
+		const { address, description } = req.body;
+		models.Asset.updateOne({ _id: id }, { address, description })
 			.then((updatedAssets) => res.send(updatedAssets))
 			.catch(next);
 	},
