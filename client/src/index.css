@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: "Karla", ;
+}
+.hi {
+  border: 1px solid #85E790;
+}
