@@ -11,6 +11,7 @@
 	},
 	"author": "Backend -John Cramer, Frontend- Kalu-Emeka, Smart Contracts -Amaan Sayyad Figma- Disruptor",
 	"license": "ISC",
+	"dependencies": {"concurrently": "^8.2.2"},
 	"devDependencies": {
 		"concurrently": "^8.2.2"
 	},
