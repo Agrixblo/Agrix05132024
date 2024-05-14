@@ -5,7 +5,7 @@
 	"main": "",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"client": "cd master && npm run dev",
+		"client": "cd client && npm run dev",
 		"backend": "cd server && npm run start",
 		"start": "concurrently --kill-others \"npm run backend\"  \"npm run client\""
 	},
