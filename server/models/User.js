@@ -24,6 +24,7 @@ const userSchema = new Schema({
 
 userSchema.methods = {
 	matchPassword: function (password) {
+		console.log("trying to matchPassword server");
 		return bcrypt.compare(password, this.password);
 	},
 };

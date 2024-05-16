@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 export const login = async (username, password, applyFunc) => {
 	const url = "http://localhost:8090/api/users/login";
-	const body = JSON.stringify({ username: username, password: password });
+	const body = JSON.stringify({ username, password});
 	console.log(`body: before LC:`, body);
 	const headers = { "Content-Type": "application/json" };
 	const res = await fetch(url, { method: "POST", body, headers });
@@ -24,22 +24,23 @@ export const login = async (username, password, applyFunc) => {
 			})
 		);
 
-		// console.log(`localStorage: `, localStorage);
+		console.log(`localStorage: `, localStorage);
 		applyFunc(true);
 	} else {
 		applyFunc(false);
 	}
-	// console.log(`localStorage: `, localStorage);
+	console.log(`localStorage: `, localStorage);
 	console.log("submitted");
 };
 
-export const register = async (username, password , walletaddress) => {
+
+export const register = async (username, password,walletaddress) => {
 	const url = "http://localhost:8090/api/users/register";
-	console.log(walletaddress);
-	const body = JSON.stringify({ username:username, password:password, walletaddress:walletaddress});
+	const body = JSON.stringify({ username, password ,walletaddress});
 	const headers = { "Content-Type": "application/json" };
-	const res = await fetch(url, { method: "POST", body:body, headers });
+	const res = await fetch(url, { method: "POST", body, headers });
 	const result = await res.json();
+	console.log(result);
 	return result;
 };
 
@@ -60,6 +61,17 @@ export const logout = async () => {
 export const getUser = async (userId) => {
 	const userData = JSON.parse(localStorage.getItem("userData"));
 	return userData;
+};
+
+
+export const getUsers = async() => {
+	const url = "http://localhost:8090/api/users";
+	const headers = { "Content-Type": "application/json" };
+	const res = await fetch(url, { method: "GET", headers });
+	const result = await res.json();
+	return result;
+	 
+
 };
 
 

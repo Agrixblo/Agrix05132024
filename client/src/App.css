@@ -37,6 +37,9 @@
   padding: 2em;
 }
 
+ .displaynone {
+  display: "none";
+ }
 .read-the-docs {
   color: #888;
 }

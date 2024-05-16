@@ -17,6 +17,8 @@ dbConnection()
 		require("./config/routes")(app);
 		app.use(express.json());
 
+		app.use(express.static(path.join(__dirname + "public")));
+
 		app.use(function (err, req, res, next) {
 			console.error(err);
 			res.status(500).send(err.message);

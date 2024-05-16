@@ -1,9 +1,20 @@
-import Navbar from '../components/nav.jsx'
+import Navbar from '../components/nav.jsx';
+import React, { useState, useContext } from "react";
+import AuthContext from "../AuthContext";
 function Dashboard () {
+    const { setIsAuth, isAuth } = useContext(AuthContext);
+ 
+ 
+
+
+    
+
     return (
+        
         <>
-        <Navbar/>
-        <div className="fixed w-full mt-[80px] pl-[30px] -z-50 shadow-lg h-[150%] sm:w-[37%] sm:pl-[20px] md:w-[37%] lg:w-[25%]" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
+        
+        <Navbar isAuth={isAuth}/>
+         <div className="fixed w-full mt-[80px] pl-[30px] -z-50 shadow-lg h-[150%] sm:w-[37%] sm:pl-[20px] md:w-[37%] lg:w-[25%]" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
             <img className='w-[45%] sm:w-[65%]' src="/Images/Component 2.png" alt="" />
             <div className='flex justify-center items-center flex-col w-[60%] mb-[20px]'>
                 <img className='w-[25%] mb-[10px] sm:w-[45%]' src="/Images/Ellipse 1.png" alt="" srcSet="" />

@@ -1,10 +1,36 @@
 import { useState } from "react";
+import AuthContext from "../AuthContext";
+import { logout } from "../services";
+import { useNavigate} from "react-router-dom";
 
-function NavBar () {
+function NavBar ({isAuth}) {
+    const navigate = useNavigate();
+    // const { setIsAuth, isAuth } = useContext(AuthContext);
     const [nav, setNav] = useState(false);
+    const [signedIn,setSignedIn] = useState(false);
     const showNav = ()  => {
-       setNav(!nav)
-    }
+        
+       setNav(!nav);
+       console.log(isAuth);
+    };
+   
+   
+
+    const signOut = async (e, isAuth) => {
+		e.preventDefault();
+		const res = await logout();
+        alert(res.message);
+		logout();
+		loggedout();
+	};
+
+
+function loggedout() {
+    navigate("/");
+}
+       
+
+
     return (
         <>
             <div className="fixed w-full z-[1000] p-[5px] py-2 bg-white shadow-md shadow-gray-400">
@@ -23,7 +49,10 @@ function NavBar () {
                         <li className="text-center text-md"><a className='pr-3' href="/dashboard">Community</a></li>
                         <li className="text-center text-md"><a className='pr-3' href="/">Finance</a></li>
                         <button className="text-center text-md bg-white border text-[16px] text-black py-[6px] px-[22px] rounded-xl"><a className='' href="/">Support</a></button>
-                        <button className="text-center text-md bg-[#1BB518] text-[16px] text-white py-[6px] px-[22px] rounded-xl"><a className='' href="/signUp">Sign up</a></button>
+                        {! isAuth ? ( <><button className="text-center text-md bg-[#1BB518] text-[16px] text-white py-[6px] px-[22px] rounded-xl"><a className='' href="/signUp">Sign up</a></button><button className="signinbutton text-center text-md bg-[#1BB518] text-[16px] text-white py-[6px] px-[22px] rounded-xl"><a className='' href="/signIn">Sign In</a></button></>):
+                        (<button className="signinbutton text-center text-md bg-[#1BB518] text-[16px] text-white py-[6px] px-[22px] rounded-xl"><a className='' onClick={signOut}>Sign Out</a></button>)
+                       
+                       }
                        
                     </ul>
                     <div className={!nav ? 'fixed left-[-100%]' : 'fixed z-[1000] left-0 top-0 w-[40%] text-black mt-[76px] h-full bg-white shadow-md ease-in-out duration-500 sm:w-[80%] md:w-[40%] lg:hidden'}>
@@ -34,7 +63,8 @@ function NavBar () {
                             <li className="text-md"><a className='font-medium' onClick={showNav} href="/">Finance</a></li>
                             <button className="text-center text-md bg-white border text-[16px] text-black py-[6px] px-[22px] rounded-xl mr-[20px]"><a className='' href="/">Support</a></button>
                             <button className="text-center text-md bg-[#1BB518] text-[16px] text-white py-[6px] px-[22px] rounded-xl"><a className='' href="/signUp">Sign up</a></button>
-                       
+                            
+
                         </ul>
                     </div>  
                 </nav>

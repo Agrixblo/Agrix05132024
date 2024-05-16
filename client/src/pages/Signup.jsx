@@ -1,25 +1,29 @@
 import useInput from "../hooks/useInput";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useParams} from "react";
 import { login, register, logout } from "../services";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import {getUsers} from "../services";
 
 
 function SignUp () {
+	
 
-    let walletaddress;
+	const navigate = useNavigate();
+
+
+    
     const [registered, setRegistered] = useState("false");
 	const [username, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	//   const [userName, setUserName] = useState(""); // New state for user name
+	
 	const [userType, setUserType] = useState("trader"); // Default to "Trader"
 	const [passwordMatchError, setPasswordMatchError] = useState(false);
 
-    const handleRegister = (e) => {
+   const handleRegister=(e) => {	
 		e.preventDefault();
-		
-
+		console.log(e);
+	
 		// Check if passwords match
 		if (password === confirmPassword) {
 			setPasswordMatchError(false);
@@ -28,8 +32,12 @@ function SignUp () {
 			setPasswordMatchError(true);
 		}
 		localStorage.setItem("registered", true);
+		let walletaddress = localStorage.getItem("walletaddress");
+		console.log(walletaddress);
 		register(username, password, walletaddress);
 		setRegistered(true);
+
+		navigate("/SignIn");
 			};
 async function connectToWallet() {
 		try {
@@ -50,8 +58,9 @@ async function connectToWallet() {
 				const accounts = await window.ethereum.request({
 					method: "eth_accounts",
 				});
-
+				console.log(accounts[0]);
 				updateConnectButton(accounts[0]);
+				localStorage.setItem("walletaddress",accounts[0]);
 				
 			} catch (error) {
 				console.error(error);
@@ -71,7 +80,8 @@ async function connectToWallet() {
 					errorMessage || "Please connect a wallet";
 			} else {
 				connectButton.innerHTML = `Connected`;
-                walletaddress = account;
+				console.log(account);
+                localStorage.setItem("walletaddress",account);
 			}
 		}
 	}
@@ -136,7 +146,7 @@ async function connectToWallet() {
 						</Link>
 
                         <a className="mt-3 text-[#1BB518] font-medium text-[15px]" href="/login">Login if you already have an account</a>
-                        <button className="mt-7 bg-[#1BB518] p-[10px] text-white rounded-md w-[30%] sm:w-[80%] lg:w-[30%]" type="submit" onClick={handleRegister}>Please connect wallet and SIGN UP</button>
+                        <button className="mt-7 bg-[#1BB518] p-[10px] text-white rounded-md w-[30%] sm:w-[80%] lg:w-[30%]" type="submit"  onClick={handleRegister}>Please connect wallet and SIGN UP</button>
                     </form>
                 </div>
             </div>
