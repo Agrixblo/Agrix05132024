@@ -12,6 +12,7 @@
     "@ramonak/react-progress-bar": "^5.2.0",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
+    "ethers": "^6.12.1",
     "react": "^18.2.0",
     "react-accessible-accordion": "^5.0.0",
     "react-bootstrap": "^2.10.2",

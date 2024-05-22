@@ -38,7 +38,7 @@
 }
 
  .displaynone {
-  display: "none";
+  display: none;
  }
 .read-the-docs {
   color: #888;
@@ -47,3 +47,5 @@
 .pad20 {
   padding: 20px;
 }
+
+

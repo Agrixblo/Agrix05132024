@@ -8,6 +8,7 @@ contract StakingContract {
     using SafeMath for uint256;
 
     AGIXXToken public agixxToken;
+    
     mapping(address => uint256) public stakes;
     mapping(address => uint256) public rewards;
     uint256 public totalStaked;

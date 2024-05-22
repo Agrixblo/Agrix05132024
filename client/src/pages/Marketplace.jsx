@@ -4,9 +4,44 @@ import React, { useState, useContext } from "react";
 import {useAuth} from "../components/auth.jsx";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getWithWallet } from '../services.js';
+import AGIXXToken from "../AGIXXToken.json";
+import {ethers} from "ethers";
 
 
 function Marketplace () {
+
+ 
+ 
+
+    /***************web3 Stuff******************/
+
+    const [contractInfo, setContractInfo] = useState();
+
+
+    async function getAgrixxTokenBalance () {
+        console.log("starting");
+    
+    const connectButton = document.getElementById("connectButton");
+
+    const AgrixxContract = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+    const UserAdd = localStorage.getItem("userInfo").walletaddress;
+    const provider = new ethers.providers.Web3Provider(UserAdd);
+
+    const erc20 = new ethers.Contract(AgrixxContract,AGIXXToken,provider);
+    const tokenName = await erc20.name();
+    const tokenSymbol = await erc20.symbol();
+    const totalSupply = await erc20.totalSupply();
+    const approve = await erc20.approve();
+    const balanceOf = await erc2020.balanceOf();
+        
+    connectButton.innerHTML = `Your Balance is: ${balanceOf}`;
+console.log(`balanceOf: `,balanceOf);
+
+
+
+
+
+ };
  const navigate = useNavigate();
     async function connectToWallet() {
 		try {
@@ -16,6 +51,7 @@ function Marketplace () {
 		}
 	}
 
+    
 
     async function connect() {
 		if (typeof window.ethereum !== "undefined") {
@@ -44,10 +80,13 @@ function Marketplace () {
 		const connectButton = document.getElementById("connectButton");
 
 		if (connectButton) {
-			if (account === undefined) {
+			if (account === undefined ) {
 				connectButton.innerHTML =
 					errorMessage || "Please connect a wallet";
-			} else {
+
+			} else if (account && connectButton.innerHTML === `Connected`) 
+             {} 
+            else {
 				connectButton.innerHTML = `Connected`;
 				
                 localStorage.setItem("walletaddress",account);
@@ -59,10 +98,12 @@ function Marketplace () {
                 let items =JSON.stringify(userData1);
                localStorage.setItem("userInfo",items);
                console.log(localStorage);
+               document.getElementById("signindiv").classList.add("displaynone");
+               document.getElementById("checkbalancediv").classList.remove("displaynone");
 
          
              
-                navigate("../dashboard");
+                // navigate("../dashboard");
 			}
 		}
     }
@@ -72,7 +113,7 @@ function Marketplace () {
             <Navbar/>
             <div className="flex justify-center items-center pt-[150px] flex-col" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
                 <div className="">
-                    <h1 className='text-center text-[30px] font-medium mb-[40px] sm:text-[25px] lg:text-[30px]'>WHAT YOU NEED TO DO?</h1>
+                    <h1 className="text-center text-[30px] font-medium mb-[40px] sm:text-[25px] lg:text-[30px]">WHAT YOU NEED TO DO?</h1>
                 </div>
                 <div className="grid grid-cols-2 mb-[50px] w-full py-[30px] px-[50px] sm:grid-cols-1 sm:py-[10px] sm:px-[20px] lg:py-[30px] lg:px-[50px] lg:grid-cols-2">
                     <div className="flex justify-center items-center flex-col shadow-md w-[90%] sm:mb-[20px] sm:w-full lg:mb-0 lg:w-[90%]">
@@ -81,11 +122,20 @@ function Marketplace () {
                         <p className='text-[16px] w-[70%] mb-[20px] text-center sm:w-[90%] sm:text-[15px] lg:w-[70%] lg:text-[16px]'>Gather, store,track and collect biodiversity datas. leverage and egenerate food security and practices</p>
                        <button className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' type="submit"><a href="/signUp">Sign Up</a></button>
                     </div>
-                    <div className="flex justify-center items-center flex-col shadow-md w-[90%] sm:w-full lg:w-[90%]">
+                    <div id="signindiv" className="flex justify-center items-center flex-col shadow-md w-[90%] sm:w-full lg:w-[90%]">
                         <img className='w-[25%]' src="/Images/sell.png" alt="" />
                         <h2 className='text-[20px] font-medium mt-[10px] mb-[10px]'>Trader</h2>
                         <p  className='text-[16px] w-[60%] mb-[20px] text-center sm:w-[90%] sm:text-[15px] lg:w-[70%] lg:text-[16px]'>Track, trade,manage and invest in agriculture products</p>
                         <button className='button p-[20px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' id="connectButton" type="submit" onClick={connectToWallet}>Sign In/Connect Wallet</button>
+                       
+                        
+                    </div>
+                    <div id="checkbalancediv" className= "displaynone flex justify-center items-center flex-col shadow-md w-[90%] sm:w-full lg:w-[90%]">
+                        <img className='w-[25%]' src="/Images/sell.png" alt="" />
+                        <h2 className='text-[20px] font-medium mt-[10px] mb-[10px]'>Trader</h2>
+                        <p  className='text-[16px] w-[60%] mb-[20px] text-center sm:w-[90%] sm:text-[15px] lg:w-[70%] lg:text-[16px]'>Track, trade,manage and invest in agriculture products</p>
+                        <button className='button p-[20px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' id="connectButton" type="submit" onClick={getAgrixxTokenBalance}>Check Your Agrixx balance</button>
+                       
                         
                     </div>
                 </div>
