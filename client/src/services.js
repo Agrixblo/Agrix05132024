@@ -1,6 +1,5 @@
 
 
-import { useContext } from "react";
 
 //********************************Users Section**********************************//
 
@@ -22,7 +21,9 @@ export const login = async (username, password, applyFunc) => {
 				id: result._id,
 				username: result.username,
 			})
+			
 		);
+		localStorage.setItem("signedIn",true);
 
 		console.log(`localStorage: `, localStorage);
 		applyFunc(true);
@@ -34,17 +35,41 @@ export const login = async (username, password, applyFunc) => {
 };
 
 
-export const register = async (username, password,walletaddress) => {
+export const getWithWallet = async (account) => {
+	let answer;
+	const url = "http://localhost:8090/api/users";
+	const headers = { "Content-Type": "application/json" };
+	const res = await fetch(url, { method: "GET", headers });
+	if (res.ok) {
+		 
+		const result = await res.json();
+		
+		for (let j = 0;j< result.length; j++) {
+		
+			if (result[j].walletaddress === account) {
+			answer = result[j];
+			
+			}
+			
+		}
+		
+	} else {
+		return error("Wallet Owner not found, please sign up.");
+	
+	}
+	return answer;
+};
+
+export const register = async (username, email, password, walletaddress, profileAddress,userType) => {
 	const url = "http://localhost:8090/api/users/register";
-	const body = JSON.stringify({ username, password ,walletaddress});
+	const body = JSON.stringify({ username, email, password, walletaddress, profileAddress,userType});
 	const headers = { "Content-Type": "application/json" };
 	const res = await fetch(url, { method: "POST", body, headers });
 	const result = await res.json();
-	console.log(result);
 	return result;
 };
 
-export const logout = async () => {
+export const logout = async (applyFunc) => {
 	const url = "http://localhost:8090/api/users/logout";
 	const { token } = JSON.parse(localStorage.getItem("userData"));
 	const headers = {
@@ -52,9 +77,14 @@ export const logout = async () => {
 		Authorization: `Bearer ${token}`,
 	};
 	const res = await fetch(url, { method: "POST", body: "", headers });
+	if (res.ok) {
+		applyFunc(false);
+	} else {
+		applyFunc(true);
+	}
+	
 	const result = await res.json();
-	localStorage.removeItem("userData");
-
+	localStorage.setItem("signedIn", false);
 	return result;
 };
 
@@ -68,6 +98,15 @@ export const getUsers = async() => {
 	const url = "http://localhost:8090/api/users";
 	const headers = { "Content-Type": "application/json" };
 	const res = await fetch(url, { method: "GET", headers });
+	if (res.ok) {
+		applyFunc(false);
+		const result = await res.json();
+		return result;
+	} else {
+		applyFunc(true);
+	
+	}
+	
 	const result = await res.json();
 	return result;
 	 
@@ -93,7 +132,6 @@ export const addTranscation = async ( data) => {
 
 
 	const body = JSON.stringify({ user_id: id, data: data });
-	console.log(body);
 	const headers = {
 		"Content-Type": "application/json",
 	};
@@ -104,7 +142,6 @@ export const addTranscation = async ( data) => {
 			{ method: "POST", headers: headers, body: body }
 		);
 		const data = await response.json();
-		console.log(`id:`, data._id);
 		return data;
 	} catch (error) {
 		throw new Error(

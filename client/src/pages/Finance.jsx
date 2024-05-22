@@ -1,16 +1,11 @@
+ 
 import Navbar from '../components/nav.jsx';
 import Footer from '../components/footer.jsx';
 import React, { useState, useContext } from "react";
 import {useAuth} from "../components/auth.jsx";
 
-
-function LandingPage () {
-  
-   
-     
-
- 
-
+const  Finance = () => {
+    const auth = useAuth();
     return (
         <>
           <Navbar />
@@ -25,7 +20,7 @@ function LandingPage () {
                 <img className='w-full' src="/Images/img 4.png" alt="" />
             </div>
             <div className="pt-[60px] ml-[50px] mr-[30px] mb-[30px]" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
-                <h1 className='text-[35px] mb-[20px] text-center font-semibold sm:text-[30px]'>Soultions</h1>
+                <h1 className='text-[35px] mb-[20px] text-center font-semibold sm:text-[30px]'>Solutions</h1>
                 <div className="grid grid-cols-4 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="">
                         <img className='' src="/Images/img5.png" alt="" />
@@ -54,8 +49,9 @@ function LandingPage () {
                 <img src="/Images/green.png" alt="" />
             </div>
             <Footer/>
-            {/* <Footer/> */}
+          
         </>
     )
 }
-export default LandingPage
+
+export default Finance

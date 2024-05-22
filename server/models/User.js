@@ -12,6 +12,11 @@ const userSchema = new Schema({
 		unique: true,
 		required: true,
 	},
+	email: {
+		type: String,
+		unique: true,
+		required: true,
+	},
 
 	password: {
 		type: String,
@@ -19,6 +24,8 @@ const userSchema = new Schema({
 	},
 
 	walletaddress: { type: String, required: true},
+	profileAddress:{ type: String, required: false},
+	userType:{ type: String, required: true},
 	transactions: {type: Array, require: false},
 });
 

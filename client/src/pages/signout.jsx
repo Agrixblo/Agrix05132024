@@ -2,21 +2,36 @@ import Navbar from '../components/nav.jsx';
 import Footer from '../components/footer.jsx';
 import React, { useState, useContext } from "react";
 import {useAuth} from "../components/auth.jsx";
+import {logout} from "../services.js";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
+function SignOut() {
+    const navigate = useNavigate();
 
-function LandingPage () {
-  
-   
-     
+    const auth = useAuth();
 
- 
+    async function handleLogout(){
+        console.log("clicked");
+            const res = await logout(auth.logout);    
+            console.log("res logout: ",res);  
+            if (res.message = "Logout successfully!") { 
+            auth.logout();
+            console.log("Logged out!");
 
-    return (
-        <>
-          <Navbar />
-            <div className="pt-[120px] flex justify-center items-center flex-col">
-                <h1 className='font-semibold text-[35px] text-center sm:text-[25px] md:text-[35px]'>Harnessing  Data For Change</h1>
-                <p className='font-sm w-[40%] text-center mt-[20px] sm:w-[70%] lg:w-[40%]'>Discover how Agrix leverages blockchain technology to collect analyse and share crucial data on biodiversity to drive positive evironmental impact</p>
+            navigate("/home");
+            }else {console.log("res: ",res);}
+           
+       
+        
+
+    }
+  return (
+    <>
+    <Navbar />
+     <div className="pt-[120px] flex justify-center items-center flex-col">
+     <button className="mt-7 bg-[#1BB518] p-[30px] text-white rounded-md w-[30%] sm:w-[80%] lg:w-[50%]" type="submit"  onClick={handleLogout}>Please Confirm Logout</button>
+                {/* <h1 className='font-semibold text-[35px] text-center sm:text-[25px] md:text-[35px]'>Harnessing  Data For Change</h1>
+                <p className='font-sm w-[40%] text-center mt-[20px] sm:w-[70%] lg:w-[40%]'>Discover how Agrix leverages blockchain technology to collect analyse and share crucial data on biodiversity to drive positive evironmental impact</p> */}
             </div>
             <div className='grid grid-cols-4 gap-4 mx-[50px] mt-20 mb-[20px] sm:grid-cols-2 lg:grid-cols-4' data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
                 <img className='w-full' src="/Images/img1.png" alt="" />
@@ -55,7 +70,8 @@ function LandingPage () {
             </div>
             <Footer/>
             {/* <Footer/> */}
-        </>
-    )
+    </>
+  )
 }
-export default LandingPage
+
+export default SignOut;

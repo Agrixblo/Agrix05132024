@@ -3,7 +3,7 @@ import React, { useState, useContext,useParams} from "react";
 import { login, register, logout } from "../services";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {getUsers} from "../services";
-
+import Navbar from "../components/nav.jsx";
 
 function SignUp () {
 	
@@ -14,6 +14,8 @@ function SignUp () {
     
     const [registered, setRegistered] = useState("false");
 	const [username, setUserName] = useState("");
+	const [email,setEmail] = useState("");
+	const [profileAddress, setProfileAddress] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	
@@ -34,11 +36,13 @@ function SignUp () {
 		localStorage.setItem("registered", true);
 		let walletaddress = localStorage.getItem("walletaddress");
 		console.log(walletaddress);
-		register(username, password, walletaddress);
+		register(username, email, password, walletaddress, profileAddress,userType);
 		setRegistered(true);
 
 		navigate("/SignIn");
 			};
+
+
 async function connectToWallet() {
 		try {
 			await connect();
@@ -89,6 +93,7 @@ async function connectToWallet() {
 
     return (
         <>
+		<Navbar />
             <div className="signUp">
                 <div className="mt-[20px] flex justify-center items-center">
                     <a href="/"><img className='w-36' src="/Images/Component 2.png" alt=""/></a>
@@ -98,13 +103,26 @@ async function connectToWallet() {
                 </div>
                 <div className="forms">
                     <form action="" className="flex justify-center items-center flex-col mt-6">
-                    
+                    <input
+                        className='mb-4 rounded-md p-[12px] w-[40%] outline-none border sm:w-[90%] lg:w-[40%]'
+							type="text"
+							name="username"
+                            placeholder="Username" required
+							onChange={(e) => setUserName(e.target.value)}
+						/>
 						<input
                         className='mb-4 rounded-md p-[12px] w-[40%] outline-none border sm:w-[90%] lg:w-[40%]'
 							type="email"
-							name="username"
+							name="email"
                             placeholder="Email" required
-							onChange={(e) => setUserName(e.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+							<input
+                        className='mb-4 rounded-md p-[12px] w-[40%] outline-none border sm:w-[90%] lg:w-[40%]'
+							type="text"
+							name="profilePic"
+                            placeholder="LinkedIn Profile pic adddress" required
+							onChange={(e) => setProfileAddress(e.target.value)}
 						/>
 
 <br />
@@ -129,6 +147,9 @@ async function connectToWallet() {
 							onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="Confirm Password"
 						/>
+
+
+
 				
                 
 					{passwordMatchError && (

@@ -1,24 +1,24 @@
 import Navbar from '../components/nav.jsx';
+import Footer from '../components/footer.jsx';
 import React, { useState, useContext } from "react";
-import AuthContext from "../AuthContext";
+import {useAuth} from "../components/auth.jsx";
+import {useLocation} from "react-router-dom";
+
 function Dashboard () {
-    const { setIsAuth, isAuth } = useContext(AuthContext);
- 
- 
 
-
+  let items = JSON.parse(localStorage.getItem("userInfo"));
+  let {username, email, password, walletaddress, profileAddress,userType} = items;
     
-
     return (
         
         <>
         
-        <Navbar isAuth={isAuth}/>
+        <Navbar />
          <div className="fixed w-full mt-[80px] pl-[30px] -z-50 shadow-lg h-[150%] sm:w-[37%] sm:pl-[20px] md:w-[37%] lg:w-[25%]" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
-            <img className='w-[45%] sm:w-[65%]' src="/Images/Component 2.png" alt="" />
+            <img className='w-[45%] sm:w-[65%]' src="" alt="" />
             <div className='flex justify-center items-center flex-col w-[60%] mb-[20px]'>
-                <img className='w-[25%] mb-[10px] sm:w-[45%]' src="/Images/Ellipse 1.png" alt="" srcSet="" />
-                <h2 className='text-center font-medium text-[16px] w-[50%] sm:text-[12px] sm:w-full'>Julius Garba Researcher</h2>
+                <img className='pad20 w-[25%] mb-[20px] sm:w-[60%]' src={profileAddress} alt=""/>
+                <h2 className='text-center font-medium text-[16px] w-[50%] sm:text-[30px] sm:w-full'>Welcome! {username}</h2>
             </div>
             <div className='flex justify-start items-center w-[70%]'>
                 <img className='w-[15%] mr-[20px]' src="/Images/ic_baseline-dashboard.png" alt="" />
@@ -151,6 +151,7 @@ function Dashboard () {
                 </div>
             </div>
         </div>
+        <Footer/>
         </>
     )
 }
