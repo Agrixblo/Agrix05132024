@@ -14,6 +14,7 @@ import Navbar from "./components/nav.jsx";
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useContext ,createContext} from 'react';
+ import {ethers} from "ethers";
 
 AOS.init();
 function App() {
