@@ -37,3 +37,24 @@ body {
 	color: blue;
 	text-align: center;
 }
+.Farmers {
+	width: 100%;
+	/* border:1px solid red; */
+	height: 45vh;
+}
+
+.farmer {
+	display: inline-block;
+
+	background-color: green;
+	box-shadow: 5px 5px 5px #232b33;
+	text-shadow: 2px 2px 2px #607588;
+
+	min-width: 16rem;
+	max-width: 16rem;
+	margin: 20px;
+
+	object-fit: cover;
+	vertical-align: top;
+	text-align: center;
+}

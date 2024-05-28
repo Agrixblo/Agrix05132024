@@ -157,12 +157,17 @@ export const addTranscation = async ( data) => {
 
 
 
-export const getFarmers = async (applyFunc) => {
+export const getFarmers = async () => {
 	const url = "http://localhost:8090/api/farmers";
 	const res = await fetch(url);
-	res.json().then((farmers) => {
-		applyFunc([...farmers]);
-	});
+	if (res.ok) {
+		 
+		const result = await res.json();
+		return result;
+	} else {
+		 console.log(res.error);
+	
+	}
 };
 
 export const addFarmer = async (address, description) => {

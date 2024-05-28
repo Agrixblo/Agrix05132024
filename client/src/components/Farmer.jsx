@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import ImageName from "./ImageName.jsx";
 //import DescriptionBlock from "./DescriptionBlock";
 
-const Farmer = ({farmer}) => {
-	const { description, address,_id } =	farmer;
+const Farmer = ({key,farmer}) => {
+	console.log(farmer)
+;	const { description, address,_id } =	farmer;
 	return (
 		<>
 			<div className="farmer">

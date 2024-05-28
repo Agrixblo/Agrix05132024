@@ -2,6 +2,7 @@ import React from 'react';
 import Farmer from "./Farmer";
 
 function Farmers({farmers}) {
+    console.log(farmers);
   return (
     <div>
       	{farmers.map((f) => (
