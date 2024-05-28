@@ -157,18 +157,18 @@ export const addTranscation = async ( data) => {
 
 
 
-export const getAssets = async (applyFunc) => {
-	const url = "http://localhost:8090/api/assets";
+export const getFarmers = async (applyFunc) => {
+	const url = "http://localhost:8090/api/farmers";
 	const res = await fetch(url);
-	res.json().then((assets) => {
-		applyFunc([...assets]);
+	res.json().then((farmers) => {
+		applyFunc([...farmers]);
 	});
 };
 
-export const addAssets = async (address, description) => {
+export const addFarmer = async (address, description) => {
 	const { token, id, username } = JSON.parse(localStorage.getItem("userData"));
-	const url = "http://localhost:8090/api/assets";
-	const body = JSON.stringify({ address: address, decription: description });
+	const url = "http://localhost:8090/api/farmers";
+	const body = JSON.stringify({ address: address, description: description });
 	const headers = {
 		"Content-Type": "application/json",
 		Authorization: `Bearer ${token}`,
