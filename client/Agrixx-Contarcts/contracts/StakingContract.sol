@@ -12,15 +12,17 @@ contract StakingContract {
     mapping(address => uint256) public stakes;
     mapping(address => uint256) public rewards;
     uint256 public totalStaked;
+    mapping(address => string) public farmers;
 
     constructor(address _agixxToken) {
         agixxToken = AGIXXToken(_agixxToken);
     }
 
-    function stake(uint256 amount) external {
+    function stake(uint256 amount,address farmerAddress) external {
         require(amount > 0, "Amount must be greater than 0");
         agixxToken.transferFrom(msg.sender, address(this), amount);
         stakes[msg.sender] = stakes[msg.sender].add(amount);
+        farmers[msg.sender] = farmerAddress; 
         totalStaked = totalStaked.add(amount);
     }
 

@@ -2,41 +2,41 @@ const models = require("../models");
 
 module.exports = {
 	get: (req, res, next) => {
-		models.Asset.find()
-			.then((assets) => res.send(assets))
+		models.Farmer.find()
+			.then((farmers) => res.send(farmers))
 			.catch(next);
 	},
 	post: (req, res, next) => {
 		const { address,description } = req.body;
 		const { _id } = req.user;
 
-		models.Asset.create({  address, description })
-			.then((createdAssets) => {
+		models.Farmer.create({  address, description })
+			.then((createdFarmers) => {
 				return Promise.all([
 					models.User.updateOne(
 						{ _id },
-						{ $push: { posts: createdAssets } }
+						{ $push: { posts: createdFarmers } }
 					),
-					models.Asset.findOne({ _id: createdAssets._id }),
+					models.Farmer.findOne({ _id: createdFarmers._id }),
 				]);
 			})
-			.then(([modifiedObj, assetsObj]) => {
-				res.send(assetsObj);
+			.then(([modifiedObj, farmersObj]) => {
+				res.send(farmersObj);
 			})
 			.catch(next);
 	},
 	put: (req, res, next) => {
 		const id = req.params.id;
 		const { address, description } = req.body;
-		models.Asset.updateOne({ _id: id }, { address, description })
-			.then((updatedAssets) => res.send(updatedAssets))
+		models.Farmer.updateOne({ _id: id }, { address, description })
+			.then((updatedFarmers) => res.send(updatedFarmers))
 			.catch(next);
 	},
 
 	delete: (req, res, next) => {
 		const id = req.params.id;
-		models.Asset.deleteOne({ _id: id })
-			.then((removedAssets) => res.send(removedAssets))
+		models.Farmer.deleteOne({ _id: id })
+			.then((removedFarmers) => res.send(removedFarmers))
 			.catch(next);
 	},
 };

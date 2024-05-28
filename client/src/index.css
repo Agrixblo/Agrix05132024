@@ -16,3 +16,24 @@ body {
 .displaynone {
   display: none;
  }
+
+ .Farmers {
+	width: 100%;
+	/* border:1px solid red; */
+	height: 45vh;
+}
+
+.char {
+	height: 200px;
+	width: auto;
+	max-width: 200px;
+}
+
+.imagename {
+	height: 100%;
+}
+.imagename h2 {
+	font-style: bolder;
+	color: blue;
+	text-align: center;
+}

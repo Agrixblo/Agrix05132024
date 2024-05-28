@@ -37,7 +37,7 @@ function NavBar () {
   
     let navigationContent = (<><li className="text-md"><a className='font-medium' onClick={showNav} href="/home">Home</a></li>
     <li className="text-md"><a className='font-medium' onClick={showNav} href="/marketplace">Marketplace</a></li>
-    <li className="text-md"><a className='font-medium' onClick={showNav} href="/dashboard">Community</a></li>
+    <li className="text-md"><a className='font-medium' onClick={showNav} href="/dashboard">Dashboard</a></li>
     <li className="text-md"><a className='font-medium' onClick={showNav} href="/finance">Finance</a></li>
     <button className="text-center text-md bg-white border text-[16px] text-black py-[6px] px-[22px] rounded-xl mr-[20px]"><a className='' href="/">Support</a></button> </>);
 

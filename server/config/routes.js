@@ -3,7 +3,7 @@ const router = require("../routes");
 module.exports = (app) => {
 	app.use("/api/users", router.users);
 
-	app.use("/api/assets", router.assets);
+	app.use("/api/farmers", router.farmers);
 
 	app.use("/api/transactions", router.transactions);
 

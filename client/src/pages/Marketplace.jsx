@@ -5,7 +5,7 @@ import {useAuth} from "../components/auth.jsx";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getWithWallet } from '../services.js';
 import AGIXXToken from "../AGIXXToken.json";
-// import ethers from "ethers";
+// import ethers from "ethers"; used script in index.html
 
 
 
@@ -362,24 +362,23 @@ function Marketplace () {
 
     // const tokenName = await erc20.name();
     // const tokenSymbol = await erc20.symbol();
-    // const totalSupply = await erc20.totalSupply();
+    const totalSupply = await erc20.totalSupply();
     // const approve = await erc20.approve();
     const balance = await erc20.balanceOf(signerAddress);
-    // const balanceOf =  balance.fromCharCode(); 
+   
     console.log(`balance: `,balance);
    document.getElementById("checkbalancediv").classList.add("displaynone");     
    document.getElementById("balancediv").classList.remove("displaynone");
 
-const balanceEnd = balance.toNumber();
-console.log(balanceEnd);
-balanceButton.innerHTML = `Your Agrixx Token balance is: ${balanceEnd}`;
+    const balanceEnd = balance.toNumber();
+    console.log(balanceEnd);
+    balanceButton.innerHTML = `Your Agrixx Token balance is: ${balanceEnd}`;
+ }
 
 
+ async function stakeAgrixx() {
 
-
-
-
- };
+ }
  const navigate = useNavigate();
     async function connectToWallet() {
 		try {
@@ -480,8 +479,8 @@ balanceButton.innerHTML = `Your Agrixx Token balance is: ${balanceEnd}`;
                     <div id="balancediv" className= "displaynone flex justify-center items-center flex-col shadow-md w-[90%] sm:w-full lg:w-[90%]">
                         <img className='w-[25%]' src="/Images/sell.png" alt="" />
                         <h2 className='text-[20px] font-medium mt-[10px] mb-[10px]'>Trader</h2>
-                        <p  className='text-[16px] w-[60%] mb-[20px] text-center sm:w-[90%] sm:text-[15px] lg:w-[70%] lg:text-[16px]'>Track, trade,manage and invest in agriculture products</p>
-                        <button  className='button p-[20px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' id="balanceButton" type="submit" onClick={getAgrixxTokenBalance}>Check Your Agrixx balance</button>
+                        <p  id="balanceButton"  className='text-[20px] font-medium w-[60%] mb-[20px] text-center sm:w-[90%] sm:text-[15px] lg:w-[70%] lg:text-[20px]'>Track, trade,manage and invest in agriculture products</p>
+                        <button  className='button p-[20px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' type="submit" >Scroll down to Stake or Unstake Agrixx</button>
                        
                         
                     </div>

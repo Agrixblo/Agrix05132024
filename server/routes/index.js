@@ -1,11 +1,11 @@
 const users = require("./users");
-const assets = require("./assets");
+const farmers = require("./farmers");
 const transactions = require("./transactions");
 
 
 module.exports = {
 	users,
-	assets,
+	farmers,
 	transactions,
 
 };

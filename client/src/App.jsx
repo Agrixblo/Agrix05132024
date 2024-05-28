@@ -5,7 +5,7 @@ import SignIn from './pages/Signin';
 import SignUp from './pages/Signup';
 import SignOut from './pages/signout';
 import Finance from "./pages/Finance";
-import Stake from "./pages/stake";
+import Stake from "./pages/stake.jsx";
 import Unstake from "./pages/unstake";
 import Dashboard from './pages/dashboard';
 import {AuthProvider,useAuth}  from "./components/auth";
