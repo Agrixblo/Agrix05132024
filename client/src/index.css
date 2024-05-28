@@ -46,7 +46,7 @@ body {
 .farmer {
 	display: inline-block;
 
-	background-color: green;
+	background-color: lightgreen;
 	box-shadow: 5px 5px 5px #232b33;
 	text-shadow: 2px 2px 2px #607588;
 
