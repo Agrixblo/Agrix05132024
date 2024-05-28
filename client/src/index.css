@@ -45,7 +45,7 @@ body {
 
 .farmer {
 	display: inline-block;
-
+	padding-top: 80px;
 	background-color: lightgreen;
 	box-shadow: 5px 5px 5px #232b33;
 	text-shadow: 2px 2px 2px #607588;
@@ -57,4 +57,27 @@ body {
 	object-fit: cover;
 	vertical-align: top;
 	text-align: center;
+}
+
+.farm {
+	height: 200px;
+	width: auto;
+	max-width: 100%;
+}
+
+.textcent {
+	text-align: center;
+}
+
+.textali {
+ margin: auto;
+}
+
+
+.imgdetailpage {
+	width: 770px;
+	height:auto;
+	margin: auto;
+	border-radius: 8px;
+	margin-top: 10px;
 }

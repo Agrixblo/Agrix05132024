@@ -4,14 +4,18 @@ import React, { useState, useContext } from "react";
 import {useAuth} from "../components/auth.jsx";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getWithWallet } from '../services.js';
+
 import AGIXXToken from "../AGIXXToken.json";
+
+
 // import ethers from "ethers"; used script in index.html
 
 
 
-function Marketplace () {
+function Marketplace ({farmers}) {
 
  
+   console.log(`farmers stake:`,farmers);
  
 
     /***************web3 Stuff******************/

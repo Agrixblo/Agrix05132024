@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ImageName = ({ decription, address }) => {
+const ImageName = ({ description}) => {
 
-	const {farmerName, imageUrl, product, practices} = decription;
+	const {farmerName, imageUrl, product, practices} = description;
 	return (
 		<div className="imagename">
-			<img src={imageUrl} className="char" alt="char"/>
+			<img src={imageUrl} className="farm" alt="farm"/>
 			<h2 className="name">{farmerName}</h2>
 			<h2>{product}</h2>
 			<h2>Practices</h2>
