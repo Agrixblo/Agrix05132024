@@ -75,9 +75,20 @@ body {
 
 
 .imgdetailpage {
-	width: 770px;
+	width: 700px;
 	height:auto;
 	margin: auto;
 	border-radius: 8px;
 	margin-top: 10px;
+}
+
+.inputshadow {
+	 
+	border-color: #1BB518;
+	border-width: 5px;
+	text-align: center;
+	color: #1BB518;
+	font-weight: bolder;
+	font-size: 20px;
+	filter: drop-shadow(0 0 0.5rem #1BB518);
 }

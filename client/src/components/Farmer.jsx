@@ -7,7 +7,7 @@ const Farmer = ({farmer,farmers}) => {
 	console.log(farmer);
 	console.log(farmers);
 	
-;	const { _id,address , description} =	farmer;
+	const { _id,address , description} =	farmer;
 	return (
 		<>
 			<div className="farmer">

@@ -375,8 +375,11 @@ function Marketplace ({farmers}) {
    document.getElementById("balancediv").classList.remove("displaynone");
 
     const balanceEnd = balance.toNumber();
+    const storageBalance = Number(balanceEnd.toString());
+    localStorage.setItem("balance",storageBalance);
     console.log(balanceEnd);
     balanceButton.innerHTML = `Your Agrixx Token balance is: ${balanceEnd}`;
+    
  }
 
 
