@@ -5,6 +5,7 @@ import { useState, useContext ,createContext} from "react";
 function DetailImageName({imageUrl,farmerName,_id, address, product,practices}) {
 
     const [stakeAmount, setStakeAmount] = useState(0);
+    const [unStakeAmount, setUnstakeAmount] = useState(0);
     const User = JSON.parse(localStorage.getItem("userInfo"));
     let UserAdd = User.walletaddress;
  
@@ -451,72 +452,80 @@ async function stakeFarmer(){
     
 }
 async function stakeFarmerAmount() {
-    
-    
-       
-        if (typeof window.ethereum !== 'undefined'){
+            if (typeof window.ethereum !== 'undefined'){
             const ethereum = window.ethereum;
             const accounts = await ethereum.request({
               method: "eth_requestAccounts",
             });
         }
-        
-
-
             const provider = new ethers.providers.Web3Provider(ethereum)
             const walletAddress = UserAdd;    // first account in MetaMask
             const signer = provider.getSigner(walletAddress)
             const StakeContract = new ethers.Contract(StakingFarmerContract, StakingFarmerabi, signer);
-            const AgrixSNFTRTokenContract = new ethers.Contract(agrixsnftrTokenContract,agrixsnftrTokenABI,signer)
+            const AgrixSNFTRTokenContract = new ethers.Contract(agrixsnftrTokenContract,agrixsnftrTokenABI,signer);
             await AgrixSNFTRTokenContract.approve(UserAdd, stakeAmount);
+            const stake = await StakeContract.stake(stakeAmount);
+            notStakeFarmer();
 
             // const agrixsnftrToken = await StakeContract.agrixsnftrToken();
             // const claimReward = await StakeContract.claimReward();
             // const rewards = await StakeContract.rewards()
-            const stake = await StakeContract.stake(stakeAmount);
             // const stakes = await StakeContract.stakes();
             // const unstake = await StakeContract.unstake(unstakeAmount);
             // const totalStaked = await StakeContract.totalStaked();
         
             // console.log(`${agrixsnftrToken} is Agrix token. totalStaked is ${totalStaked} and the stakes are ${stakes}`
         
-    notStakeFarmer();
+    
+}
+
+async function unStakeFarmer() {
+    // document.getElementById("unstakefarmer").classList.add("displaynone");
+    document.getElementById("stakeButton").classList.add("displaynone");
+    document.getElementById("unstakeamount").classList.remove("displaynone");
+    if (typeof window.ethereum !== 'undefined'){
+        const ethereum = window.ethereum;
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+    }
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const walletAddress = UserAdd;    // first account in MetaMask
+        const signer = provider.getSigner(walletAddress)
+        const StakeContract = new ethers.Contract(StakingFarmerContract, StakingFarmerabi, signer);
+        const AgrixSNFTRTokenContract = new ethers.Contract(agrixsnftrTokenContract,agrixsnftrTokenABI,signer);
+        await AgrixSNFTRTokenContract.approve(StakingFarmerContract, unStakeAmount);
+        const unstake = await StakeContract.unstake(unStakeAmount);
 
 }
 
-
-    
-    // console.log(`UserAdd: `,window.ethereum.selectedAddress);
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // await provider.send("eth_requestAccounts",[]);
-    // console.log(provider);
-
-    
-    // const signer = await provider.getSigner();
-   
-    // console.log(signer);
-    // const signerAddress = await signer.getAddress();
-    // console.log(signer);
-    // const erc20 = new ethers.Contract(StakingFarmerContract,StakingFarmerabi,provider);
-    // const erc20S = new ethers.Contract(StakingFarmerContract,StakingFarmerabi,signerAddress.provider);
-
-    // const totalStaked = await erc20.totalStaked();
-    // console.log("totalStaked: ",totalStaked.toString());
-    // // const tokenSymbol = await erc20.symbol();
-    // // const totalStaked = await erc20.totalStaked();
-    // // const approve = await erc20.approve();
-    // // approve();
-
-    // console.log("staked:",stakeAmount);
-    // console.log("inside stakeAmount");
-
-    // const stake1 = await erc20S.stake(stakeAmount);
-   
-    // // const totalStaked1 = await erc20.totalStaked();
-    // // await totalStaked1.wait();
-    // // console.log("totalStaked after: ",totalStaked1.toString());
-
-    
+async function claimReward() {
+    if (typeof window.ethereum !== 'undefined'){
+        const ethereum = window.ethereum;
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+    }
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const walletAddress = UserAdd;    // first account in MetaMask
+        const signer = provider.getSigner(walletAddress)
+        const StakeContract = new ethers.Contract(StakingFarmerContract, StakingFarmerabi, signer);
+        const AgrixSNFTRTokenContract = new ethers.Contract(agrixsnftrTokenContract,agrixsnftrTokenABI,signer);
+        const claimReward = await StakeContract.claimReward();
+}
+async function stakes() {
+    if (typeof window.ethereum !== 'undefined'){
+        const ethereum = window.ethereum;
+        const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+        });
+    }
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const walletAddress = UserAdd;    // first account in MetaMask
+        const signer = provider.getSigner(walletAddress)
+        const StakeContract = new ethers.Contract(StakingFarmerContract, StakingFarmerabi, signer);
+        const unstake = await StakeContract.stakes(UserAdd);
+} 
 
 let balance =localStorage.getItem("balanceEnd");
 
@@ -538,7 +547,6 @@ async function notStakeFarmer(){
     document.getElementById("stakeButton").classList.remove("displaynone");
     document.getElementById("stakefarmer").classList.add("displaynone");
     document.getElementById("stakeButton2").classList.add("displaynone");
-    
 }
 
 
@@ -554,11 +562,16 @@ async function notStakeFarmer(){
            <div className="textali textcent">
            <button id="stakeButton2" className='displaynone p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={stakeFarmerAmount} >Stake {stakeAmount} of {balance} available AGRIXSNFTR  with {farmerName}</button>
            <button id="stakeButton" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={stakeFarmer}>Stake from Your AGRIXSNFTR wallet {UserAdd} with {farmerName}</button>
-           {/* <button id="unStakeButton" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={unStakeFarmer}>Unstake from Your AGRIXSNFTR from  {farmerName}</button>
-           <button id="claimReward" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={claimReward}>Unstake from Your AGRIXSNFTR from  {farmerName}</button>
-           <button id="quantityOfStakes" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={stakes}>Check your total AGRIXSNFTR staked</button> */}
-           <br></br>
+                    <br></br>
            <input type="text" id="stakefarmer" className="displaynone inputshadow mb-4 rounded-md p-[12px] w-[40%] outline-none border sm:w-[90%] lg:w-[40%]" placeholder="amount to stake" onChange={(e) => setStakeAmount(e.target.value)}/>
+           <br></br>
+             <button id="unstakefarmer" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={unStakeFarmer}>Unstake</button>
+             <br></br>
+             <input type="text" id="unstakeamount" className="displaynone inputshadow mb-4 rounded-md p-[12px] w-[40%] outline-none border sm:w-[90%] lg:w-[40%]" placeholder="amount to unstake" onChange={(e) => setUnstakeAmount(e.target.value)}/>
+             <br></br>
+           <button id="claimReward" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={claimReward}>Claim Staking Reward</button>
+           <br></br>
+           <button id="quantityOfStakes" className='p-[8px] w-[40%] rounded-md text-white bg-[#1BB518] mb-[30px]' onClick={stakes}>Check your total AGRIXSNFTR staked</button>
             </div>
 		</div>
 	);
